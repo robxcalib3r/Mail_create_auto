@@ -1,5 +1,6 @@
 # core modules
 from selenium import webdriver
+import time
 
 # Supporting modules
 from login import login
@@ -19,17 +20,12 @@ def main():
     init = init_driver()
     driver = init.setup_method()
 
-    _u, _p = credentials('credentials.txt')
+    _u, _p = credentials('credentials.txt', 5, 6)
     signIn = login(driver)
-    signIn.loginHRMS(_u, _p)
+    signIn.loginExchange(_u, _p)
 
-    search = searchByDept(driver)
-    search.searchByDept('Corporate Affairs')
+    time.sleep(5)
 
-    ID = retrieveInfo(driver)
-    _id, _desig, _mobile = ID.info(1)
-    print(f'ID: {_id}, Designation: {_desig}, Mobile: {_mobile}')
-    # ID.teardown_method()
 
 if __name__ == '__main__':
     main()

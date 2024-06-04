@@ -9,9 +9,11 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
-class CopyIDnumber():
-  
-  def copyIDnumber(self, deptOption = 'Corporate Affairs'):
+class searchByDept():
+  def __init__(self, driver):
+    self.driver = driver
+
+  def searchByDept(self, deptOption):
     # self.driver.get("https://hrms.waltonbd.com/HRMS/discoverEmp/index")
     # self.driver.set_window_size(788, 816)
 
@@ -32,15 +34,10 @@ class CopyIDnumber():
     dropdown = self.driver.find_element(By.ID, "allOrgMstDepartmentId")
 
     # Select the Department where you want to copy the information
-    dropdown.find_element(By.XPATH, f"//option[. = {deptOption}]").click()
+    dropdown.find_element(By.XPATH, f"//option[. = '{deptOption}']").click()
 
     self.driver.find_element(By.ID, "SearchButton").click()
 
-    name = self.driver.find_element(By.CSS_SELECTOR, ".even:nth-child(1) > .class3").text()
-    
     # element = self.driver.find_element(By.CSS_SELECTOR, ".even:nth-child(1) > .class3")
     # actions = ActionChains(self.driver)
     # actions.double_click(element).perform()
-
-    return name
-  
