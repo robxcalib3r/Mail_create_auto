@@ -7,6 +7,7 @@ from login import login
 from searchByDept import searchByDept
 from retrieveInfo import retrieveInfo
 from credentials import credentials
+from searchMailbox import search
 
 class init_driver():
     def setup_method(self, method=None):
@@ -23,6 +24,9 @@ def main():
     _u, _p = credentials('credentials.txt', 5, 6)
     signIn = login(driver)
     signIn.loginExchange(_u, _p)
+
+    s = search(driver)
+    s.searchMailbox()
 
     time.sleep(5)
 
