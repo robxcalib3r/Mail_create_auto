@@ -8,6 +8,7 @@ from searchByDept import searchByDept
 from retrieveInfo import retrieveInfo
 from credentials import credentials
 from searchMailbox import search
+from modifyMail import modify
 
 class init_driver():
     def setup_method(self, method=None):
@@ -25,8 +26,12 @@ def main():
     signIn = login(driver)
     signIn.loginExchange(_u, _p)
 
+    # Search
     s = search(driver)
-    s.searchMailbox()
+    s.searchMailbox(1, "Robin Gope")
+    # Modify
+    m = modify(driver)
+    m.modifyContact(1, "016788609740000")
 
     time.sleep(5)
 

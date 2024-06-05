@@ -4,7 +4,7 @@ import json
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
-from selenium.webdriver.support import expected_conditions
+from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
@@ -23,7 +23,7 @@ class login():
     elem = self.driver.find_element(By.LINK_TEXT, "Self Service")
     actions = ActionChains(self.driver)
     actions.move_to_element(elem).perform()
-    self.driver.find_element(By.LINK_TEXT, "Discover Employee").click()
+    WebDriverWait(self.driver, 5).until(EC.element_to_be_clickable((By.LINK_TEXT, "Discover Employee"))).click()
 
   def loginExchange(self, _user, _pw):
     self.driver.get("https://webmail.waltonbd.com/ecp/")
