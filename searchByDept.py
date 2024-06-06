@@ -42,4 +42,4 @@ class searchByDept():
     # actions = ActionChains(self.driver)
     # actions.double_click(element).perform()
 
-    time.sleep(1)
+    time.sleep(0.5)

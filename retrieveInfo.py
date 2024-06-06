@@ -14,15 +14,20 @@ class retrieveInfo():
     self.driver = driver
 
   def info(self, serial):
-    _id = self.driver.find_element(By.CSS_SELECTOR, f".even:nth-child({serial}) > .class3").text
-    _name = self.driver.find_element(By.CSS_SELECTOR, f".even:nth-child({serial}) > .class4").text
-    _desig = self.driver.find_element(By.CSS_SELECTOR, f".even:nth-child({serial}) > .class5").text.split("\n")[0]
-    _loc = self.driver.find_element(By.CSS_SELECTOR, f".even:nth-child({serial}) > .class5").text.split("\n")[1]
-    _ou = self.driver.find_element(By.CSS_SELECTOR, f".even:nth-child({serial}) > .class9").text.split("\n")[0]
-    _dept = self.driver.find_element(By.CSS_SELECTOR, f".even:nth-child({serial}) > .class9").text.split("\n")[2]
-    _mobile = self.driver.find_element(By.CSS_SELECTOR, f".even:nth-child({serial}) > .class13").text.split("\n")[0]
+    if serial % 2 == 1:
+      tag = 'even'
+    else:
+      tag = 'odd'
+      
+    _id = self.driver.find_element(By.CSS_SELECTOR, f".{tag}:nth-child({serial}) > .class3").text
+    _name = self.driver.find_element(By.CSS_SELECTOR, f".{tag}:nth-child({serial}) > .class4").text
+    _desig = self.driver.find_element(By.CSS_SELECTOR, f".{tag}:nth-child({serial}) > .class5").text.split("\n")[0]
+    _loc = self.driver.find_element(By.CSS_SELECTOR, f".{tag}:nth-child({serial}) > .class5").text.split("\n")[1]
+    _ou = self.driver.find_element(By.CSS_SELECTOR, f".{tag}:nth-child({serial}) > .class9").text.split("\n")[0]
+    _dept = self.driver.find_element(By.CSS_SELECTOR, f".{tag}:nth-child({serial}) > .class9").text.split("\n")[2]
+    _mobile = self.driver.find_element(By.CSS_SELECTOR, f".{tag}:nth-child({serial}) > .class13").text.split("\n")[0]
     try:
-      _email = self.driver.find_element(By.CSS_SELECTOR, f".even:nth-child({serial}) > .class13").text.split("\n")[1]
+      _email = self.driver.find_element(By.CSS_SELECTOR, f".{tag}:nth-child({serial}) > .class13").text.split("\n")[1]
     except Exception:
       _email = None
 

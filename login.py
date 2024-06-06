@@ -15,7 +15,7 @@ class login():
 
   def loginHRMS(self, _user, _pw):
     self.driver.get("https://hrms.waltonbd.com/HRMS/")
-    self.driver.set_window_size(788, 816)
+    self.driver.set_window_size(1084, 816)
     self.driver.find_element(By.ID, "username").click()
     self.driver.find_element(By.ID, "username").send_keys(_user)
     self.driver.find_element(By.ID, "password").send_keys(_pw)
@@ -27,7 +27,7 @@ class login():
 
   def loginExchange(self, _user, _pw):
     self.driver.get("https://webmail.waltonbd.com/ecp/")
-    self.driver.set_window_size(1084, 816)
+    self.driver.set_window_size(788, 816)
     self.driver.find_element(By.ID, "username").click()
     self.driver.find_element(By.ID, "username").send_keys(_user)
     self.driver.find_element(By.ID, "password").send_keys(_pw)

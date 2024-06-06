@@ -11,24 +11,40 @@ from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 import time
 
 class search():
-    def __init__(self, driver):
+    def __init__(self, driver, waitTime):
         self.driver = driver
-
-    def searchMailbox(self, waitTime, _strToSearch):
-        actions = ActionChains(self.driver)
-
+        self.waitTime = waitTime
+        ## Switching to initial exchange window
+        self.driver.switch_to.window(self.driver.window_handles[0])
+        ## Switching frame to find the objects   
         frameMailbox = self.driver.find_element(By.XPATH, "//iframe[@class='abs0 hw100']")
         self.driver.switch_to.frame(frameMailbox)
+        ## Search Button
         WebDriverWait(self.driver, 5).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='ToolBarItem  ToolBarButton ToolBarButton InlineSearchBarCommand  EnabledToolBarItem']"))).click()
-        time.sleep(waitTime)
+        # time.sleep(self.waitTime)
+
+    def searchMailbox(self, _strToSearch):
+        actions = ActionChains(self.driver)
+        ## Switching to initial exchange window
+        self.driver.switch_to.window(self.driver.window_handles[0])
+        ## Switching frame to find the objects   
+        frameMailbox = self.driver.find_element(By.XPATH, "//iframe[@class='abs0 hw100']")
+        self.driver.switch_to.frame(frameMailbox)
+
+        ## Clear previous input
+        self.driver.find_element(By.ID, "ResultPanePlaceHolder_ctl00_ctl02_ctl01_MailboxListView_SearchBox").clear()
+        ## Send keys to search input
         self.driver.find_element(By.ID, "ResultPanePlaceHolder_ctl00_ctl02_ctl01_MailboxListView_SearchBox").send_keys(_strToSearch)
-        time.sleep(waitTime)
+        time.sleep(self.waitTime)
+        ## Press enter to search
         self.driver.find_element(By.ID, "ResultPanePlaceHolder_ctl00_ctl02_ctl01_MailboxListView_SearchBox").send_keys(Keys.ENTER)
-        time.sleep(waitTime)
+        time.sleep(self.waitTime)
+
+        ## Checks how many rows of table is generated after the search
         rows = self.driver.find_elements(By.XPATH, "//table[@id='ResultPanePlaceHolder_ctl00_ctl02_ctl01_MailboxListView_contentTable']/tbody/tr")
         number_of_rows = len(rows)
         print(f'Number of rows: {number_of_rows}')
-        time.sleep(waitTime)
+        time.sleep(self.waitTime)
         if (number_of_rows == 1):
             selectedRow = self.driver.find_element(By.XPATH, "//table[@id='ResultPanePlaceHolder_ctl00_ctl02_ctl01_MailboxListView_contentTable']/tbody/tr")
             actions.double_click(selectedRow).perform()
