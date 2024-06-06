@@ -13,10 +13,10 @@ import re
 
 class modify():
     def __init__(self, driver, _waitTime):
-        self.corpLoc = "Plot-1088,R-80ft.2, Block-I, Khilkhet, Vatara, Bashundhara R/A"
-        self.hqLoc = "Chandra, kaliakoir, Gazipur"
-        self.whiplc = "Walton Hi-Tech Industries PLC."
-        self.wdil = "Walton Digi-Tech Industries Ltd."
+        # self.corpLoc = "Plot-1088,R-80ft.2, Block-I, Khilkhet, Vatara, Bashundhara R/A"
+        # self.hqLoc = "Chandra, kaliakoir, Gazipur"
+        # self.whiplc = "Walton Hi-Tech Industries PLC."
+        # self.wdil = "Walton Digi-Tech Industries Ltd."
 
         self.ou = {
             'WHIPLC': "Walton Hi-Tech Industries PLC.",
@@ -96,3 +96,9 @@ class modify():
     def saveInfo(self):
         WebDriverWait(self.driver, 5).until(EC.element_to_be_clickable((By.XPATH, "//button[@id='ResultPanePlaceHolder_ButtonsPanel_btnCommit']"))).click()
         
+    def errorCheck(self):
+        try:
+            self.driver.find_element(By.XPATH, "//button[@id='dlgModalError_OK']").click()
+        except Exception:
+            return False
+        return True

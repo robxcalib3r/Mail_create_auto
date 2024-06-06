@@ -41,7 +41,7 @@ def main():
     signInEx_.loginExchange(_uE, _pE)
 
     ## Search pressing search button
-    s = search(driverEx, 1)
+    s = search(driverEx, 0.2)
 
     ## Searching by given Dept.
     s_ = searchByDept(driverHR)
@@ -52,15 +52,15 @@ def main():
     info_serial = ['id', 'name', 'desig', 'ou', 'dept', 'mobile', 'email', 'loc']
 
     ## Page to start retrieving data from HRMS
-    k = 4
+    k = 10
     ## First time opening page (Comment out if not needed)
     WebDriverWait(driverHR, 5).until(EC.element_to_be_clickable((By.XPATH, f"//div[@class='pagination']/a[contains(text(), '{k}')]"))).click()
     
     ## Breaks loop if reaches end Page
-    _endPage = 4
+    _endPage = 54
     while True:
         ## Looping through rows of employees
-        for j in range(29, 51):
+        for j in range(1, 51):
             ID = retrieveInfo(driverHR)
             info = [" "] * 8
             info = ID.info(j)
@@ -87,15 +87,23 @@ def main():
                 # driverEx.switch_to.window(driverEx.window_handles[0])
 
                 ## Search with keywords
-                s.searchMailbox(info[6])
-                ## Modify
-                m = modify(driverEx, 0.2)
-                m.modifyContact(info[5], info[7])
-                m.modifyDesig(info[2], info[4], info[3])
-                time.sleep(2)
-                m.saveInfo()
-                # time.sleep(1)
-            
+                foundMail = s.searchMailbox(info[6])
+                if foundMail:
+                    ## Modify
+                    m = modify(driverEx, 0.2)
+                    error = m.errorCheck()
+                    if not error:
+                        m.modifyContact(info[5], info[7])
+                        m.modifyDesig(info[2], info[4], info[3])
+                        time.sleep(2)
+                    m.saveInfo()
+                    # time.sleep(1)
+                else:
+                    r = input('No mail found!, do you want to continue? "y" or "n": ')
+                    if r == 'y':
+                        pass
+                    elif r == 'n':
+                        exit()
             # print(f'number of windows: {driverHR.window_handles}')
             # # driverHR.switch_to.window(driverHR.window_handles[-1])
             # print(f'Window name: {driverHR.title}')
