@@ -45,7 +45,7 @@ def main():
 
     ## Searching by given Dept.
     s_ = searchByDept(driverHR)
-    s_.searchByDept('Customer Service Management')
+    s_.searchByDept('Plaza Sales')
 
     ## Retreiving info by Serial No. of individuals
     
@@ -53,11 +53,11 @@ def main():
 
     ## Page to start retrieving data from HRMS
     k = 10
-    ## First time opening page (Comment out if not needed)
+    # First time opening page (Comment out if not needed)
     WebDriverWait(driverHR, 5).until(EC.element_to_be_clickable((By.XPATH, f"//div[@class='pagination']/a[contains(text(), '{k}')]"))).click()
     
     ## Breaks loop if reaches end Page
-    _endPage = 54
+    _endPage = 114
     while True:
         ## Looping through rows of employees
         for j in range(1, 51):
@@ -71,7 +71,7 @@ def main():
 
             # time.sleep(5)
 
-            whiteList = ['waltonplc', 'waltonbd', 'marcelbd', 'risingbd', 'walcart']
+            whiteList = ['@waltonplc.com', '@waltonbd.com', '@marcelbd.com', '@risingbd.com', '@walcart.com']
             for z in range(len(whiteList)):
                 if info[6] == None:
                     break
@@ -95,7 +95,7 @@ def main():
                     if not error:
                         m.modifyContact(info[5], info[7])
                         m.modifyDesig(info[2], info[4], info[3])
-                        time.sleep(2)
+                        time.sleep(0.5)
                     m.saveInfo()
                     # time.sleep(1)
                 else:
