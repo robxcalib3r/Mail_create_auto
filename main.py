@@ -43,21 +43,21 @@ def main():
     ## Search pressing search button
     s = search(driverEx, 0.2)
 
-    ## Searching by given Dept.
-    s_ = searchByDept(driverHR)
-    s_.searchByDept('Plaza Sales')
+    # ## Searching by given Dept.
+    # s_ = searchByDept(driverHR)
+    # s_.searchByDept('Sales')
 
     ## Retreiving info by Serial No. of individuals
     
     info_serial = ['id', 'name', 'desig', 'ou', 'dept', 'mobile', 'email', 'loc']
 
     ## Page to start retrieving data from HRMS
-    k = 10
+    k = 2
     # First time opening page (Comment out if not needed)
     WebDriverWait(driverHR, 5).until(EC.element_to_be_clickable((By.XPATH, f"//div[@class='pagination']/a[contains(text(), '{k}')]"))).click()
     
     ## Breaks loop if reaches end Page
-    _endPage = 114
+    _endPage = 999
     while True:
         ## Looping through rows of employees
         for j in range(1, 51):
@@ -99,11 +99,20 @@ def main():
                     m.saveInfo()
                     # time.sleep(1)
                 else:
-                    r = input('No mail found!, do you want to continue? "y" or "n": ')
-                    if r == 'y':
-                        pass
-                    elif r == 'n':
-                        exit()
+                    # ## Manual input v1.0
+                    # r = input('No mail found!, do you want to continue? "y" or "n": ')
+                    # if r == 'y':
+                    #     pass
+                    # elif r == 'n':
+                    #     exit()
+
+                    ## Auto input into non-existent_mails.txt
+                    print("No emails found writing into the txt file")
+                    with open('non-existent_mails.txt', 'a') as f:
+                        f.writelines(f'{info[6]}\n')
+
+
+
             # print(f'number of windows: {driverHR.window_handles}')
             # # driverHR.switch_to.window(driverHR.window_handles[-1])
             # print(f'Window name: {driverHR.title}')
