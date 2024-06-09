@@ -1,3 +1,8 @@
 .venv
 __pycache__
 credentials.txt
+non-existent_mails.txt
+inactive_employees.txt
+active_employees.txt
+active_employees_from_shell.txt
+inactive_employees_from_shell.txt
