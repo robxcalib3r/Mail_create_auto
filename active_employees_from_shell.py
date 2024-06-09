@@ -1,0 +1,3 @@
+import active_deactive_mail_check
+
+active_deactive_mail_check.check_active('inactive_employees_from_shell.txt', 'active_employees_from_shell.txt')
