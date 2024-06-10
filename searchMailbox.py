@@ -116,16 +116,16 @@ class search():
                 mail_state = WebDriverWait(self.driver, 0.5).until(EC.visibility_of_element_located((By.XPATH, "//input[@id='ResultPanePlaceHolder_OwaMailboxPolicyProperties_contentContainer_tbxOWAEnabled']"))).get_attribute("value")
                 # except Exception:
                 #     mail_state = 'Enable'
+                if mail_state == 'Enabled':
+                    return True, mail_state
+                else:
+                    return True, mail_state
             else:
-                mail_state = 'Disabled'
+                mail_state = 'Corrupted'
+                return mail_state
             
             # print(f'mail state :{mail_state}')
-            if mail_state == 'Enabled':
-                print(mail_state)
-                return True, True
-            else:
-                print(mail_state)
-                return True, False
+            
 
         elif(number_of_rows == 0):
             print(f"User {mailToCheck} not found")
