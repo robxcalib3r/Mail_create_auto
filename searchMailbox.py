@@ -104,14 +104,27 @@ class search():
             # else:
             #     print('disabled')
             #     return True, False
+            try:
+                warning_state = bool(WebDriverWait(self.driver, 0.5).until(EC.visibility_of_element_located((By.XPATH, "//span[@id='ResultPanePlaceHolder_OwaMailboxPolicyProperties_warningPanel_WarningMessage']"))))
+            except Exception:
+                warning_state = False
 
-            mail_state = self.driver.find_element(By.XPATH, "//a[@id='ResultPanePlaceHolder_OwaMailboxPolicyProperties_contentContainer_DisableToggleOWACommand']").text
+            if not warning_state:
+                # try:
+                ## Check Email Connectivity link info from link
+                # mail_state = WebDriverWait(self.driver, 0.5).until(EC.visibility_of_element_located((By.XPATH, "//a[@id='ResultPanePlaceHolder_OwaMailboxPolicyProperties_contentContainer_DisableToggleOWACommand']"))).text
+                mail_state = WebDriverWait(self.driver, 0.5).until(EC.visibility_of_element_located((By.XPATH, "//input[@id='ResultPanePlaceHolder_OwaMailboxPolicyProperties_contentContainer_tbxOWAEnabled']"))).get_attribute("value")
+                # except Exception:
+                #     mail_state = 'Enable'
+            else:
+                mail_state = 'Disabled'
+            
             # print(f'mail state :{mail_state}')
-            if mail_state == 'Disable':
-                print('enabled')
+            if mail_state == 'Enabled':
+                print(mail_state)
                 return True, True
             else:
-                print('disabled')
+                print(mail_state)
                 return True, False
 
         elif(number_of_rows == 0):
