@@ -28,6 +28,7 @@ class search():
                 WebDriverWait(self.driver, 5).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='ToolBarItem  ToolBarButton ToolBarButton InlineSearchBarCommand  EnabledToolBarItem']"))).click()
             except TimeoutException:
                 time.sleep(self.waitTime)
+                print('-----TimeoutException occurred in search----')
                 self.driver.refresh()
 
     def searchMailbox(self, _strToSearch):
