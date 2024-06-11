@@ -8,3 +8,4 @@ active_employees_from_shell.txt
 inactive_employees_from_shell.txt
 test.py
 *.txt
+!requirements.txt
