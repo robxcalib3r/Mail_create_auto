@@ -8,6 +8,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+from selenium.common.exceptions import TimeoutException
 import time
 import re
 
@@ -15,14 +16,19 @@ class search():
     def __init__(self, driver, waitTime):
         self.driver = driver
         self.waitTime = waitTime
-        ## Switching to initial exchange window
-        self.driver.switch_to.window(self.driver.window_handles[0])
-        ## Switching frame to find the objects   
-        frameMailbox = self.driver.find_element(By.XPATH, "//iframe[@class='abs0 hw100']")
-        self.driver.switch_to.frame(frameMailbox)
-        ## Search Button
-        WebDriverWait(self.driver, 5).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='ToolBarItem  ToolBarButton ToolBarButton InlineSearchBarCommand  EnabledToolBarItem']"))).click()
-        # time.sleep(self.waitTime)
+
+        while True:
+            try:
+                ## Switching to initial exchange window
+                self.driver.switch_to.window(self.driver.window_handles[0])
+                ## Switching frame to find the objects   
+                frameMailbox = self.driver.find_element(By.XPATH, "//iframe[@class='abs0 hw100']")
+                self.driver.switch_to.frame(frameMailbox)
+                ## Search Button
+                WebDriverWait(self.driver, 5).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='ToolBarItem  ToolBarButton ToolBarButton InlineSearchBarCommand  EnabledToolBarItem']"))).click()
+            except TimeoutException:
+                time.sleep(self.waitTime)
+                self.driver.refresh()
 
     def searchMailbox(self, _strToSearch):
         actions = ActionChains(self.driver)
@@ -122,7 +128,7 @@ class search():
                     return True, mail_state
             else:
                 mail_state = 'Corrupted'
-                return mail_state
+                return True, mail_state
             
             # print(f'mail state :{mail_state}')
             
