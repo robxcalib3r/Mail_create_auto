@@ -26,10 +26,11 @@ class retrieveInfo():
     _ou = self.driver.find_element(By.CSS_SELECTOR, f".{tag}:nth-child({serial}) > .class9").text.split("\n")[0]
     _dept = self.driver.find_element(By.CSS_SELECTOR, f".{tag}:nth-child({serial}) > .class9").text.split("\n")[2]
     _mobile = self.driver.find_element(By.CSS_SELECTOR, f".{tag}:nth-child({serial}) > .class13").text.split("\n")[0]
+    _status = self.driver.find_element(By.CSS_SELECTOR, f".{tag}:nth-child({serial}) > .class15b").text.split("\n")[0].strip()
     try:
       _email = self.driver.find_element(By.CSS_SELECTOR, f".{tag}:nth-child({serial}) > .class13").text.split("\n")[1]
     except Exception:
       _email = None
 
 
-    return [_id, _name, _desig, _ou, _dept, _mobile, _email, _loc]
+    return [_id, _name, _desig, _ou, _dept, _mobile, _email, _loc, _status]
