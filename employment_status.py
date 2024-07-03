@@ -7,10 +7,10 @@ from selenium.webdriver.common.by import By
 import re
 
 ## Support modules
-from login import login
-from retrieveInfo import retrieveInfo
-from credentials import credentials
-from retrieveID import searchFromEservices
+from core.login import login
+from core.retrieveInfo import retrieveInfo
+from core.credentials import credentials
+from core.retrieveID import searchFromEservices
 
 class init_driver():
     def setup_method(self, method=None):

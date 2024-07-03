@@ -7,12 +7,12 @@ from selenium.webdriver.common.by import By
 import re
 
 ## Supporting modules
-from login import login
-from searchByDept import searchByDept
-from retrieveInfo import retrieveInfo
-from credentials import credentials
-from searchMailbox import search
-from modifyMail import modify
+from core.login import login
+from core.searchByDept import searchByDept
+from core.retrieveInfo import retrieveInfo
+from core.credentials import credentials
+from core.searchMailbox import search
+from core.modifyMail import modify
 
 class init_driver():
     def setup_method(self, method=None):
